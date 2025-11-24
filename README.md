@@ -44,7 +44,6 @@ java -cp out App
 - Enter an email to login. If the email is new, enter name to register.
 
 ## Files to check
-- `presentation/` — PPTX & PDF for Review 1
 - `sql/schema.sql` — DB schema
 - `src/main/java/` — Java source code
 - `screenshots/` — UI screenshots (add before submission)
