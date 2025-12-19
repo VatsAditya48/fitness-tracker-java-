@@ -1,300 +1,121 @@
-# Fitness Tracker Application
+Fitness Tracking System 🏋️‍♂️
+A comprehensive, Single-File Java Application designed to demonstrate advanced Java concepts. This project implements a hybrid architecture that works as both a Console Application and a Web Application (Servlet) within a single cohesive codebase.
 
-A comprehensive Java web application demonstrating advanced Java concepts including OOP, Collections, Multithreading, JDBC, and Servlets.
+📋 Features & Requirement Coverage
+This project successfully implements all the following grading criteria:
 
-## 📋 Features Implemented
+1. OOP Implementation (10 marks)
+Polymorphism: FitnessActivity abstract class with specialized Running and Cycling implementations.
 
-### 1. OOP Implementation (10 marks)
-- **Polymorphism**: `FitnessActivity` abstract class with multiple implementations (`Running`, `Cycling`, `GymWorkout`)
-- **Inheritance**: Activity hierarchy with shared behavior and specialized implementations
-- **Interfaces**: `Activity` interface for activity contracts, `Goal` interface for goal tracking
-- **Exception Handling**: Custom exceptions (`InvalidActivityException`, `DatabaseException`, `UserNotFoundException`)
-- **Encapsulation**: Proper getters/setters and access modifiers
+Inheritance: Shared attributes (duration, date) in the parent class, specific logic in child classes.
 
-### 2. Collections & Generics (6 marks)
-- **Generic Classes**: `ActivityManager<T>`, `StatisticsCalculator<T>`
-- **List**: ArrayList for activity storage and retrieval
-- **Map**: HashMap for statistics, TreeMap for sorted goals, ConcurrentHashMap for thread safety
-- **Set**: HashSet for unique activity types
-- **Queue**: LinkedBlockingQueue for async processing, PriorityQueue for high-calorie activities
-- **Stream API**: Filter, map, collect operations for data processing
+Interfaces: Activity interface defining the contract for calorie calculation.
 
-### 3. Multithreading & Synchronization (4 marks)
-- **Runnable**: `ActivityLogger` for background activity logging
-- **Callable**: `WeeklyStatsCalculator` for parallel statistics computation
-- **Thread Pools**: ExecutorService and ScheduledExecutorService management
-- **Synchronization**: `synchronized` blocks, ReadWriteLock for thread-safe operations
-- **BlockingQueue**: Producer-consumer pattern for activity logging
-- **Concurrent Collections**: ConcurrentHashMap for safe concurrent access
+Exception Handling: Custom DatabaseException and InvalidActivityException.
 
-### 4. Database Operations Classes (7 marks)
-- **UserDAO**: Complete CRUD operations for user management
-- **ActivityDAO**: Polymorphic activity storage and retrieval
-- **GoalDAO**: Goal tracking and progress updates
-- **Singleton Pattern**: DatabaseManager for connection management
-- **Factory Pattern**: Activity creation from database records
-- **Prepared Statements**: SQL injection prevention
-- **Transaction Management**: Proper connection handling
+2. Collections & Generics (6 marks)
+Generics: Custom GoalValidator<T extends Number> class to validate numeric targets dynamically.
 
-### 5. JDBC Connectivity (3 marks)
-- **DriverManager**: MySQL JDBC driver configuration
-- **Connection Pooling**: Singleton database manager
-- **PreparedStatement**: Parameterized queries for security
-- **ResultSet**: Data retrieval and mapping to objects
-- **Exception Handling**: Proper SQLException handling
+Collections: Usage of ArrayList<FitnessActivity> for storing and retrieving history.
 
-### 6. Servlet Implementation (10 marks)
-- **UserRegistrationServlet**: User registration and retrieval (GET/POST)
-- **ActivityServlet**: Activity logging with async processing (GET/POST)
-- **StatisticsServlet**: Multi-threaded statistics calculation (GET)
-- **GoalServlet**: Goal management (GET/POST)
-- **DashboardServlet**: Comprehensive dashboard with multiple data sources
-- **JSON Responses**: Gson integration for RESTful API
-- **Error Handling**: Proper HTTP status codes and error messages
+3. Multithreading & Synchronization (4 marks)
+Background Processing: AnalyticsProcessor class implements Runnable to handle heavy analysis.
 
-### 7. Code Quality & Execution (5 marks)
-- Clean code structure with meaningful variable names
-- Comprehensive error handling at all layers
-- Proper resource management (try-with-resources)
-- Documentation and comments
-- Separation of concerns (DAO, Servlet, Model layers)
-- RESTful API design principles
+Synchronization: Uses synchronized blocks to ensure thread-safe reporting to the console/logs.
 
-### 8. Innovation & Extra Effort (2 marks)
-- **BMI Calculator**: Automatic BMI calculation in dashboard
-- **Activity Cache**: LinkedHashMap with LRU eviction policy
-- **Background Monitoring**: Scheduled goal monitoring
-- **Async Logging**: Non-blocking activity logging with queues
-- **Statistics View**: Database view for aggregated user statistics
-- **Stored Procedures**: Complex query encapsulation
-- **Thread Pool Management**: Centralized executor service handling
+Thread Management: Manual thread creation and joining for background tasks.
 
-## 🏗️ Project Structure
+4. Database Operations & JDBC (16 marks)
+DAO Pattern: ActivityDAO isolates all SQL operations (INSERT, SELECT).
 
-```
-fitness-tracker/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   ├── models/
-│   │   │   │   ├── FitnessActivity.java
-│   │   │   │   ├── Running.java
-│   │   │   │   ├── Cycling.java
-│   │   │   │   ├── GymWorkout.java
-│   │   │   │   ├── User.java
-│   │   │   │   └── FitnessGoal.java
-│   │   │   ├── interfaces/
-│   │   │   │   ├── Activity.java
-│   │   │   │   └── Goal.java
-│   │   │   ├── exceptions/
-│   │   │   │   ├── InvalidActivityException.java
-│   │   │   │   ├── DatabaseException.java
-│   │   │   │   └── UserNotFoundException.java
-│   │   │   ├── collections/
-│   │   │   │   ├── ActivityManager.java
-│   │   │   │   ├── StatisticsCalculator.java
-│   │   │   │   ├── ActivityCache.java
-│   │   │   │   └── GoalTracker.java
-│   │   │   ├── threading/
-│   │   │   │   ├── ActivityLogger.java
-│   │   │   │   ├── SyncStatisticsService.java
-│   │   │   │   ├── WeeklyStatsCalculator.java
-│   │   │   │   ├── GoalMonitor.java
-│   │   │   │   └── FitnessThreadPoolManager.java
-│   │   │   ├── database/
-│   │   │   │   ├── DatabaseManager.java
-│   │   │   │   ├── UserDAO.java
-│   │   │   │   ├── ActivityDAO.java
-│   │   │   │   └── GoalDAO.java
-│   │   │   ├── servlets/
-│   │   │   │   ├── UserRegistrationServlet.java
-│   │   │   │   ├── ActivityServlet.java
-│   │   │   │   ├── StatisticsServlet.java
-│   │   │   │   ├── GoalServlet.java
-│   │   │   │   └── DashboardServlet.java
-│   │   │   └── FitnessTrackerApp.java
-│   │   ├── webapp/
-│   │   │   ├── WEB-INF/
-│   │   │   │   └── web.xml
-│   │   │   ├── index.html
-│   │   │   └── error-*.html
-│   │   └── resources/
-│   │       └── database-setup.sql
-│   └── test/
-│       └── java/
-└── pom.xml
-```
+JDBC Connectivity: DBConnection helper class manages the MySQL connection.
 
-## 🚀 Setup Instructions
+Security: Uses PreparedStatement to prevent SQL Injection.
 
-### Prerequisites
-- Java JDK 11 or higher
-- Apache Tomcat 9.x or higher
-- MySQL 8.x
-- Maven 3.6+
+Transaction Management: Auto-commit mode with resource closing (try-with-resources).
 
-### Database Setup
-```bash
-# Login to MySQL
-mysql -u root -p
+5. Servlet Implementation (10 marks)
+Hybrid Controller: FitnessServlet handles both the Dashboard view (doGet) and Data Submission (doPost).
 
-# Run the setup script
-source database-setup.sql
-```
+Dynamic HTML: Generates responsive HTML tables programmatically.
 
-### Configuration
-Update `DatabaseManager.java` with your database credentials:
-```java
-private static final String DB_URL = "jdbc:mysql://localhost:3306/fitness_tracker";
-private static final String DB_USER = "your_username";
-private static final String DB_PASSWORD = "your_password";
-```
+Deployment: Compliant with Apache Tomcat and standard Servlet containers.
 
-### Dependencies (pom.xml)
-```xml
-<dependencies>
-    <!-- MySQL Connector -->
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>8.0.33</version>
-    </dependency>
-    
-    <!-- Servlet API -->
-    <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>4.0.1</version>
-        <scope>provided</scope>
-    </dependency>
-    
-    <!-- Gson for JSON -->
-    <dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>2.10.1</version>
-    </dependency>
-</dependencies>
-```
+🏗️ Project Structure
+Unlike typical Maven projects, this solution is consolidated into a Single Source File for ease of review and compilation.
 
-### Build & Deploy
-```bash
-# Build the project
-mvn clean package
+Plaintext
 
-# Deploy to Tomcat
-cp target/fitness-tracker.war $TOMCAT_HOME/webapps/
+src/
+└── FitnessSystem.java  <-- CONTAINS ALL LOGIC
+     ├── public class FitnessSystem (Main)
+     ├── class FitnessServlet (Web Controller)
+     ├── class ActivityDAO (Database Layer)
+     ├── class Running / Cycling (Models)
+     └── class AnalyticsProcessor (Threading)
+🚀 Setup & Execution
+Prerequisites
+Java JDK 8+
 
-# Start Tomcat
-$TOMCAT_HOME/bin/startup.sh
-```
+Apache Tomcat 9+ (For Web Mode)
 
-## 📡 API Endpoints
+MySQL Server
 
-### User Management
-- `POST /register` - Register new user
-- `GET /register?userId=1` - Get user by ID
-- `GET /register` - Get all users
+JARs: mysql-connector-java.jar and servlet-api.jar
 
-### Activity Tracking
-- `POST /activity` - Log new activity
-- `GET /activity?userId=1` - Get user activities
-- `GET /activity?userId=1&startDate=2024-12-01&endDate=2024-12-31` - Get activities by date range
+1. Database Setup
+Run this SQL script in your MySQL Workbench:
 
-### Statistics
-- `GET /statistics?userId=1&type=total` - Get total statistics
-- `GET /statistics?userId=1&type=weekly&startDate=2024-12-15&endDate=2024-12-22` - Get weekly stats
+SQL
 
-### Goals
-- `POST /goals` - Create new goal
-- `GET /goals?userId=1` - Get user goals
+CREATE DATABASE fitness_db;
+USE fitness_db;
 
-### Dashboard
-- `GET /dashboard?userId=1` - Get comprehensive dashboard
+CREATE TABLE activities (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    type VARCHAR(50),
+    duration INT,
+    calories DOUBLE,
+    date_logged VARCHAR(100)
+);
+2. How to Run (Console Mode)
+To test the Logic, OOP, and Multithreading without a server:
 
-## 🧪 Testing
+Bash
 
-Run the standalone test:
-```bash
-java FitnessTrackerApp
-```
+# Compile
+javac -cp .:mysql-connector.jar FitnessSystem.java
 
-This will test all major components including:
-- User registration
-- Activity logging with polymorphism
-- Collections and generics
-- Exception handling
-- Goal management
-- Multithreading
-- Thread pool statistics
+# Run
+java -cp .:mysql-connector.jar FitnessSystem
+3. How to Run (Web Mode)
+To use the Dashboard and Servlet features:
 
-## 📊 Example API Requests
+Place FitnessSystem.java into your Dynamic Web Project's src folder.
 
-### Register User
-```bash
-curl -X POST http://localhost:8080/fitness-tracker/register \
-  -d "username=john_doe" \
-  -d "email=john@example.com" \
-  -d "weight=75.0" \
-  -d "height=175.0"
-```
+Ensure the mysql-connector.jar is in WEB-INF/lib.
 
-### Log Running Activity
-```bash
-curl -X POST http://localhost:8080/fitness-tracker/activity \
-  -d "userId=1" \
-  -d "activityType=RUNNING" \
-  -d "duration=30" \
-  -d "distance=5.0" \
-  -d "date=2024-12-19"
-```
+Deploy to Tomcat.
 
-### Get Dashboard
-```bash
-curl http://localhost:8080/fitness-tracker/dashboard?userId=1
-```
+Access via Browser: http://localhost:8080/YourProject/fitness
 
-## 🎯 Grading Coverage
+📡 API / Servlet Endpoints
+The FitnessServlet handles the following interactions:
 
-| Requirement | Implementation | Points |
-|------------|----------------|--------|
-| OOP (Polymorphism, Inheritance, Exception, Interfaces) | ✅ Complete | 10/10 |
-| Collections & Generics | ✅ Complete | 6/6 |
-| Multithreading & Synchronization | ✅ Complete | 4/4 |
-| Database Operations Classes | ✅ Complete | 7/7 |
-| JDBC Connectivity | ✅ Complete | 3/3 |
-| Servlet Implementation | ✅ Complete | 10/10 |
-| Code Quality & Execution | ✅ Complete | 5/5 |
-| Innovation/Extra Effort | ✅ Complete | 2/2 |
-| **TOTAL** | | **47/47** |
+GET /fitness: Renders the HTML Dashboard, Forms, and History Table.
 
-## 🔍 Key Design Patterns Used
+POST /fitness: Accepts form data (type, duration, distance), saves it to MySQL, triggers the background thread, and redirects back to the dashboard.
 
-1. **Singleton**: DatabaseManager for single connection instance
-2. **Factory**: Activity creation from database records
-3. **DAO**: Data Access Object pattern for database operations
-4. **Template Method**: Abstract FitnessActivity class
-5. **Strategy**: Different calorie calculation strategies
-6. **Observer**: Goal monitoring (implicit)
-7. **Producer-Consumer**: Activity logging queue
+🎯 Grading Checklist
+Requirement	Implementation Status
+OOP (Polymorphism, Inheritance)	✅ Implemented via FitnessActivity hierarchy
+Collections & Generics	✅ Implemented via GoalValidator<T> & ArrayList
+Multithreading	✅ Implemented via AnalyticsProcessor
+Database Classes	✅ Implemented via ActivityDAO
+JDBC Connectivity	✅ Implemented via DBConnection
+Servlet Implementation	✅ Implemented via FitnessServlet
+Code Quality	✅ Clean, Modular, Single-File Design
 
-## 📝 Notes
-
-- All database operations use PreparedStatements to prevent SQL injection
-- Thread-safe operations use proper synchronization mechanisms
-- RESTful API design with proper HTTP methods and status codes
-- Comprehensive error handling at all layers
-- Clean separation of concerns (Model-DAO-Servlet architecture)
-
-## 🤝 Contributing
-
-This is an educational project demonstrating Java concepts. Feel free to extend with:
-- JWT authentication
-- More activity types
-- Social features
-- Mobile app integration
-- Real-time notifications
-
-## 📄 License
-
-Educational Project - Free to use and modify
+📝 License
+Educational Project.
