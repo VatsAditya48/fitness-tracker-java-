@@ -5,16 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
-/**
- * FITNESS TRACKING SYSTEM
- * Complete implementation covering:
- * - OOP (Inheritance, Polymorphism, Interfaces) - 10 Marks
- * - Collections & Generics (Custom Generic Class) - 6 Marks
- * - Multithreading & Synchronization - 4 Marks
- * - Database Connectivity (JDBC, DAO) - 13 Marks
- * - Servlet Implementation - 10 Marks
- * - Exception Handling - Included
- */
+
 public class FitnessSystem {
     // Console Test (Main Method) to demonstrate non-web features
     public static void main(String[] args) {
